@@ -1,0 +1,34 @@
+# config.yaml
+# All monitoring policy lives here. Edit this file, not the Python code.
+
+thresholds:
+  cpu: 85.0
+  memory: 90.0
+  disk: 90.0
+
+disk_path: "/"
+
+required_processes:
+  - python
+  - systemd
+
+required_ports:
+  - 22
+  - 80
+  - 443
+
+http_endpoints:
+  - url: "http://localhost:8080/health"
+    expected_status: 200
+    timeout: 5
+  - url: "https://api.example.com/status"
+    expected_status: 200
+    timeout: 10
+
+alerting:
+  enabled: true
+  webhook_url: "https://hooks.slack.com/services/YOUR/WEBHOOK/URL"
+
+logging:
+  level: "INFO"
+  file: "/var/log/health_monitor.log"
